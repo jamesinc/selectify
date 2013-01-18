@@ -2,9 +2,12 @@
 
 A jQuery select box <strike>mangler</strike> enhancement device.
 
+Tested in Internet Explorer 7, 8, 9, Chrome, Firefox 18.
+Probably works in: Internet Explorer 10, Firefox 4+, Opera.
+
 ## Shut up and show me a demo
 
-Hit it: http://jsfiddle.net/jamesinc/5bSYN/1/
+Hit it: http://jsfiddle.net/jamesinc/5bSYN/
 
 ## Why did I write this?
 
