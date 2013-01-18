@@ -24,7 +24,7 @@
 		this.each( function ( ) {
 
 			var el = $( this ),
-				i, options,
+				options,
 				container, placeholder, list, anchors;
 
 			// If it's not a select element, skip it.
@@ -98,6 +98,8 @@
 			});
 
 			placeholder.on( "click", function ( e ) {
+
+				e.preventDefault();
 
 				list.slideToggle( settings.duration );
 				container.toggleClass( settings.classes.open );
