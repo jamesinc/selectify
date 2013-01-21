@@ -25,15 +25,19 @@ there and move on to the next thing on your to-do list.
 in your code, and the plugin will trigger change events at all the right times, and
 will listen for change events on the underlying `<select>` element.
 
-    $( "select" ).on( "change", function ( ) {
-    
-       console.log( "Oh my God, this actually still works?" );
-    
-    });
+```javascript
+$( "select" ).on( "change", function ( ) {
+
+	console.log( "Oh my God, this actually still works?" );
+
+});
+```
 
 But wait, there's more
 
-    $( "select" ).trigger( "change" );
+```javascript
+$( "select" ).trigger( "change" );
+```
 
 Oh my God, that updates the plugin UI?
 
@@ -45,23 +49,27 @@ because it's shitty. Actually it's not *that* bad.
 
 ## Usage
 
-    $("select").selectify();
-    console.log( "Congratulations, Selectify is now working." );
+```javascript
+$( "select" ).selectify();
+console.log( "Congratulations, Selectify is now working." );
+```
 
 ## Options object
 
 Showing defaults (i.e. what you get if you don't provide an options object).
 
-    {
-	   duration: 50,
-       classes: {
-          container: "sl-container",
-          placeholder: "sl-placeholder",
-          options: "sl-options",
-          selected: "sl-selected",
-          open: "sl-open"
-       }
-    }
+```javascript
+{
+	duration: 50,
+	classes: {
+		container: "sl-container",
+		placeholder: "sl-placeholder",
+		options: "sl-options",
+		selected: "sl-selected",
+		open: "sl-open"
+	}
+}
+```
 
 ## What are those options bloody well for?
 
@@ -85,22 +93,26 @@ Added to the container element when the select box is open.
 It's easier if I just show you the element structure, and then you look at
 the default options above and put two and two together.
 
-    <select>
-       <option>Foo</option>
-       <option>Bar</option>
-    </select>
+```html
+<select>
+	<option>Foo</option>
+	<option>Bar</option>
+</select>
+```
 
 Becomes:
 
-    <select style="display: none">
-       <option>Foo</option>
-       <option>Bar</option>
-    </select>
+```html
+<select style="display: none">
+	<option>Foo</option>
+	<option>Bar</option>
+</select>
 
-    <div class="sl-container">
-       <div class="sl-placeholder">Foo</div>
-       <ul class="sl-options">
-          <li><a href="#" class="sl-selected">Foo</a></li>
-          <li><a href="#">Bar</a></li>
-       </ul>
-    </div>
+<div class="sl-container">
+	<div class="sl-placeholder">Foo</div>
+	<ul class="sl-options">
+		<li><a href="#" class="sl-selected">Foo</a></li>
+		<li><a href="#">Bar</a></li>
+	</ul>
+</div>
+```
