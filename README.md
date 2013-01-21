@@ -9,6 +9,10 @@ Probably works in: Internet Explorer 10, Firefox 4+, Opera.
 
 Hit it: http://jsfiddle.net/jamesinc/5bSYN/
 
+## To-do
+
+* Add support for <optgroup>
+
 ## Why did I write this?
 
 There was a project where I was using selectbox, and got fed up with its needless bullshit and non-existent event triggering.
