@@ -46,7 +46,7 @@ because it's shitty. Actually it's not *that* bad.
 ## Usage
 
     $("select").selectify();
-    console.log( "Congratulations, Selectify is now working. Go grab a coffee while your hapless coworker configures the extensive options list in the other select box plugin you're trialling." );
+    console.log( "Congratulations, Selectify is now working." );
 
 ## Options object
 
