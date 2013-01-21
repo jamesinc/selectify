@@ -11,7 +11,7 @@ Hit it: http://jsfiddle.net/jamesinc/5bSYN/
 
 ## To-do
 
-* Add support for <optgroup>
+* Add support for `<optgroup>`
 
 ## Why did I write this?
 
