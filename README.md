@@ -1,6 +1,6 @@
 # Selectify
 
-A jQuery select box <strike>mangler</strike> enhancement device.
+A jQuery select box ~~mangler~~ enhancement device.
 
 Tested in Internet Explorer 7, 8, 9, Chrome, Firefox 18.
 Probably works in: Internet Explorer 10, Firefox 4+, Opera.
