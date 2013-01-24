@@ -1,15 +1,21 @@
+
 body {
-  font-family: Arial, sans-serif;
-  margin: 10px;
+	font-family: Arial, sans-serif;
+	margin: 10px;
 }
 
 h1 {
-  font-size: 2em;
-  padding: 10px 0 20px;
+	font-size: 2em;
+	padding: 10px 0 20px;
 }
 
 .sl-container {
 
+}
+
+.sl-placeholder:focus {
+	outline: none;
+	box-shadow: 0 0 10px 0 #9ecaed;
 }
 
 .sl-placeholder:after {
@@ -50,6 +56,10 @@ h1 {
 	background: #00f;
 	color: #fff;
 }
+.sl-container .sl-options .sl-selected {
+	background: lime;
+}
 .sl-container.sl-open .sl-placeholder {
-  border: 1px solid #000;
+	border: 1px solid #9ecaed;
+	box-shadow: 0 0 10px #9ecaed;
 }

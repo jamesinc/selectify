@@ -63,6 +63,7 @@
 		this.each( function ( ) {
 
 			var el = $( this ),
+				self = this,
 				options,
 				container, placeholder, list, anchors;
 
@@ -95,7 +96,8 @@
 			// Create placeholder element to display the select's
 			// current value
 			placeholder = $( "<div/>", {
-				"class": settings.classes.placeholder
+				"class": settings.classes.placeholder,
+				"tabindex": "0"
 			});
 
 			// Create the list element for options
@@ -152,6 +154,46 @@
 
 				list.slideToggle( settings.duration );
 				container.toggleClass( settings.classes.open );
+
+			});
+
+			placeholder.on( "keydown", function ( e ) {
+
+				var key = e.which,
+					intercept = false,
+					currentIndex = self.selectedIndex;
+
+				// Down arrow, right arrow
+				if ( key === 40 || key === 39 ) {
+
+					intercept = true;
+
+					self.selectedIndex = Math.min( options.length - 1, self.selectedIndex + 1 );
+
+				}
+
+				// Up arrow, left arrow
+				if ( key === 38 || key === 37 ) {
+
+					intercept = true;
+
+					self.selectedIndex = Math.max( 0, self.selectedIndex - 1 );
+
+				}
+
+				if ( intercept ) {
+
+					e.preventDefault();
+
+					if ( currentIndex !== self.selectedIndex ) {
+
+						el.trigger( "change" );
+
+					}
+
+					return false;
+
+				}
 
 			});
 
