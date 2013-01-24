@@ -9,10 +9,16 @@ Probably works in: Internet Explorer 10, Firefox 4+, Opera.
 
 Hit it: [http://jsfiddle.net/jamesinc/5bSYN/](http://jsfiddle.net/jamesinc/5bSYN/ "jsFiddle demo").
 
+## Features
+
+* Does what you'd expect a select box to do
+* Supports keyboard controls
+
 ## To-do
 
-* Add support for `<optgroup>` elements. Currently they are ignored.
 * Investigate `focus` and `blur` event forwarding.
+* Investigate rapid keyboard selection by pressing letters/numbers (e.g. find "Australia" in a list
+  of countries by focusing the select box and typing "a u s").
 
 ## Why did I write this?
 
