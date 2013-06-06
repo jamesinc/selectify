@@ -52,7 +52,100 @@
 	 */
 	$.fn.selectify = function ( options ) {
 
-		var settings;
+		var settings,
+			// Maintain a dictionary of values in the select
+			// so they can be matched as the user types
+			dictionary = function ( select ) {
+
+				var optionsHtml = "",
+					searchString = "",
+					searchTimer = null,
+					dict = { },
+					clearSearchString = function ( ) {
+
+						searchString = "";
+
+					},
+					// JS doesn't notify us when 3rd-party code modifies the options
+					// list, so we get the options HTML as a string and compare it
+					// to the last one we stored. If they're different, we rebuild
+					// the dictionary.
+					rebuild = function ( ) {
+
+						if ( select.html() !== optionsHtml ) {
+
+							$.each( select.find( "option" ), function ( ) {
+
+								var el = $( this );
+
+								if ( el.text().length ) {
+
+									dict[ el.text() ] = el.val();
+
+								}
+
+							});
+
+							optionsHtml = select.html();
+
+						}
+
+					},
+					// Restarts the countdown to clear the search string
+					resetSearch = function ( ) {
+
+						clearTimeout( searchTimer );
+
+						searchTimer = setTimeout( clearSearchString, 1000 );
+
+					};
+
+				return {
+
+					find: function ( text ) {
+
+						var textLength,
+							selectedOption = $( select.find("option").get(select.get(0).selectedIndex) ),
+							result = false;
+
+						rebuild();
+						resetSearch();
+
+						searchString += text;
+						textLength = searchString.length;
+
+						if ( !selectedOption.length || selectedOption.text().substr(0, textLength).toUpperCase() !== searchString ) {
+
+							if ( textLength ) {
+
+								$.each( dict, function ( key, value ) {
+
+									if ( key.substr(0, textLength).toUpperCase() === searchString ) {
+
+										result = value;
+										return false;
+
+									}
+
+								});
+
+							}
+
+						}
+
+						return result;
+
+					},
+					clear: function ( ) {
+
+						clearTimeout( searchTimer );
+						clearSearchString();
+
+					}
+
+				};
+
+			};
 
 		options = options || { };
 
@@ -63,6 +156,7 @@
 		this.each( function ( ) {
 
 			var el = $( this ),
+				dict = new dictionary( el ),
 				self = this,
 				options,
 				container, placeholder, list, anchors;
@@ -160,6 +254,8 @@
 			placeholder.on( "keydown", function ( e ) {
 
 				var key = e.which,
+					keyChar = String.fromCharCode( key ),
+					match,
 					intercept = false,
 					currentIndex = self.selectedIndex;
 
@@ -195,6 +291,20 @@
 
 				}
 
+				if ( /[a-zA-Z0-9-_ !@#$%^&*\(\)+\/\\?><;:'"|]/.test(keyChar) ) {
+
+					match = dict.find( keyChar );
+
+					if ( match && el.val() !== match ) {
+
+						el
+							.val( match )
+							.trigger( "change" );
+
+					}
+
+				}
+
 			});
 
 			// Close the list if the user clicks elsewhere on the page.
@@ -213,6 +323,8 @@
 			el.on( "change", function ( e, src ) {
 
 				var index = this.selectedIndex;
+
+				dict.clear();
 
 				// Don't do anything if the event was originally propagated by this plugin
 				if ( src && src.sl ) {
