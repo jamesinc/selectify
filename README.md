@@ -17,8 +17,9 @@ Hit it: [http://jsfiddle.net/jamesinc/5bSYN/](http://jsfiddle.net/jamesinc/5bSYN
 ## To-do
 
 * Investigate `focus` and `blur` event forwarding.
-* Investigate rapid keyboard selection by pressing letters/numbers (e.g. find "Australia" in a list
-  of countries by focusing the select box and typing "a u s").
+* ~~Investigate rapid keyboard selection by pressing letters/numbers (e.g. find "Australia" in a list
+  of countries by focusing the select box and typing "a u s").~~
+* Improve keyboard events by supporting option cycling (e.g. list of items starting with 'G', tapping G key repeatedly will cycle selection through each item - unless there is an item starting with 'GG')
 
 ## Why did I write this?
 
