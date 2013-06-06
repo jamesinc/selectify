@@ -283,6 +283,7 @@
 
 					if ( currentIndex !== self.selectedIndex ) {
 
+						dict.clear();
 						el.trigger( "change" );
 
 					}
@@ -323,8 +324,6 @@
 			el.on( "change", function ( e, src ) {
 
 				var index = this.selectedIndex;
-
-				dict.clear();
 
 				// Don't do anything if the event was originally propagated by this plugin
 				if ( src && src.sl ) {
