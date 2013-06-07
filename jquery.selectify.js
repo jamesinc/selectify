@@ -1,10 +1,13 @@
 /**
- * Selectify, an angry jQuery plugin
+ * Selectify - an unobtrusive select overlay that reproduces the
+ * native <select> element experience Pretty Well(TM).
+ * 
  * by James Ducker <james.ducker+js@gmail.com>
  * 
  * Works with jQuery >= 1.7
  *
- * Enhances <select> elements with a custom UI.
+ * "Add-and-forget" - manipulate your underlying <select> element
+ * and changes are immediately propagated to Selectify's overlay.
  *
  * Project home: https://github.com/jamesinc/selectify
  * Issue tracker: https://github.com/jamesinc/selectify/issues
