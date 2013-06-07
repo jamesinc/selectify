@@ -19,9 +19,13 @@
 	// Got some default options up in here.
 	var defaults = {
 		duration: 50,
+		autoWidth: true,
+		btnText: "▼",
 		classes: {
 			container: "sl-container",
+			placeholderContainer: "sl-placeholder-container",
 			placeholder: "sl-placeholder",
+			btn: "sl-button",
 			options: "sl-options",
 			selected: "sl-selected",
 			open: "sl-open"
@@ -58,7 +62,7 @@
 		var settings,
 			// Maintain a dictionary of values in the select
 			// so they can be matched as the user types
-			dictionary = function ( select ) {
+			Dictionary = function ( select ) {
 
 				var optionsHtml = "",
 					searchString = "",
@@ -155,23 +159,24 @@
 		// Merge defaults and options to make settings
 		settings = $.extend( true, { }, defaults, options );
 
-		// Go through the jQuery collection
+		// Setup each <select> in the provided collection.
 		this.each( function ( ) {
 
 			var el = $( this ),
-				dict = new dictionary( el ),
+				dict = new Dictionary( el ),
 				self = this,
 				options,
-				container, placeholder, list, anchors;
+				container, placeholderContainer,
+				placeholder, btn, list, anchors;
 
-			// If current element is not a select element, skip it.
+			// If current element is not a <select> element, skip it.
 			if ( !el.is("select") ) {
 
 				return;
 
 			}
 
-			// Check to see if this element has already been selectified
+			// Check to see if this element has already been selectified(TM)
 			if ( el.data("sl") === true ) {
 
 				// Remove old selectifications from the element
@@ -179,7 +184,7 @@
 
 			}
 
-			// Get options list
+			// Get collection of <option> elements
 			options = el.find( "option" );
 
 			// Create container element for the new UI
@@ -190,12 +195,29 @@
 				}
 			});
 
+			placeholderContainer = $( "<div/>", {
+				"class": settings.classes.placeholderContainer,
+				tabindex: 0
+			});
+
 			// Create placeholder element to display the select's
 			// current value
 			placeholder = $( "<div/>", {
 				"class": settings.classes.placeholder,
-				"tabindex": "0"
 			});
+
+			btn = $( "<div />", {
+				"class": settings.classes.btn,
+				text: settings.btnText,
+				css: {
+					position: "absolute",
+					right: 0,
+					top: 0,
+					height: "100%"
+				}
+			});
+
+			placeholderContainer.append( placeholder, btn );
 
 			// Create the list element for options
 			list = $( "<ul/>", {
@@ -245,7 +267,7 @@
 			});
 
 			// Handle list open/close.
-			placeholder.on( "click", function ( e ) {
+			placeholderContainer.on( "click", function ( e ) {
 
 				e.preventDefault();
 
@@ -254,7 +276,7 @@
 
 			});
 
-			placeholder.on( "keydown", function ( e ) {
+			placeholderContainer.on( "keydown", function ( e ) {
 
 				var key = e.which,
 					keyChar = String.fromCharCode( key ),
@@ -280,6 +302,7 @@
 
 				}
 
+				// Stop processing if it's a command key (i.e. directional arrow)
 				if ( intercept ) {
 
 					e.preventDefault();
@@ -295,6 +318,16 @@
 
 				}
 
+				// Enter key, space bar
+				// Causes the options list to close (if it's open)
+				if ( key === 13 || key === 32 ) {
+
+					list.slideUp( settings.duration );
+
+				}
+
+				// Match other keystrokes - used for typing values into the select
+				// and having it match them
 				if ( /[a-zA-Z0-9-_ !@#$%^&*\(\)+\/\\?><;:'"|]/.test(keyChar) ) {
 
 					match = dict.find( keyChar );
@@ -308,6 +341,12 @@
 					}
 
 				}
+
+			});
+
+			placeholderContainer.on( "selectstart", function ( e ) {
+
+				return false;
 
 			});
 
@@ -352,8 +391,14 @@
 			// Set initial anchor styling
 			$( anchors.get(el[0].selectedIndex) ).addClass( settings.classes.selected );
 
+			if ( settings.autoWidth ) {
+
+				placeholder.width( el.width() );
+
+			}
+
 			// Add our elements to the page
-			container.append( placeholder, list );
+			container.append( placeholderContainer, list );
 			el
 				.hide()
 				.after( container )
