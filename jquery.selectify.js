@@ -273,6 +273,7 @@
 
 				list.slideToggle( settings.duration );
 				container.toggleClass( settings.classes.open );
+				el.trigger( "change" );
 
 			});
 
