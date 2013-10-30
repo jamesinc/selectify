@@ -366,7 +366,14 @@
 			el.on( "change", function ( e, src ) {
 
 				var index = this.selectedIndex;
-
+				
+				var dist_from_top = $(anchors.get(self.selectedIndex)).offset().top+(list.offset().top-$(anchors.get(0)).offset().top)-list.offset().top;
+				if ((dist_from_top - list.scrollTop())>list.height() || (dist_from_top - list.scrollTop())<0) {
+					list.clearQueue().animate({
+						scrollTop: dist_from_top - list.height()/2
+					}, 300);
+				}
+				
 				// Don't do anything if the event was originally propagated by this plugin
 				if ( src && src.sl ) {
 
