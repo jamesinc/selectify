@@ -366,13 +366,28 @@
 			// Listen for change events on the original select element
 			el.on( "change", function ( e, src ) {
 
-				var index = this.selectedIndex;
-				
-				var dist_from_top = $(anchors.get(self.selectedIndex)).offset().top+(list.offset().top-$(anchors.get(0)).offset().top)-list.offset().top;
-				if ((dist_from_top - list.scrollTop())>list.height() || (dist_from_top - list.scrollTop())<0) {
+				var index = this.selectedIndex,
+					listScrollOffset = Math.abs( list.scrollTop() ),
+					selectedAnchor = $( anchors.get(index) ),
+					positionOffset = parseInt(list.css("border-top-width")),
+					selectionOffset = selectedAnchor.offset().top - anchors.first().offset().top;
+
+				// Scroll the options list up if selection is above the visible
+				// portion of the list
+				if ( selectionOffset < listScrollOffset ) {
+
 					list.clearQueue().animate({
-						scrollTop: dist_from_top - list.height()/2
-					}, 300);
+						scrollTop: positionOffset + selectionOffset
+					}, settings.duration);
+
+				} else if ( selectionOffset > listScrollOffset +
+						list.height() - selectedAnchor.outerHeight() )
+				{
+				
+					list.clearQueue().animate({
+						scrollTop: positionOffset + selectionOffset - list.height() + selectedAnchor.outerHeight()
+					}, settings.duration);
+				
 				}
 				
 				// Don't do anything if the event was originally propagated by this plugin
@@ -382,11 +397,9 @@
 
 				}
 
-				anchors
-					.removeClass( settings.classes.selected );
-
 				placeholder.text( $(options.get(index)).text() );
-				$( anchors.get(index) ).addClass( settings.classes.selected );
+				anchors.removeClass( settings.classes.selected );
+				selectedAnchor.addClass( settings.classes.selected );
 
 			});
 
