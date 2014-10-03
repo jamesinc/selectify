@@ -1,3 +1,4 @@
+/*jshint jquery:true */
 /**
  * Selectify - an unobtrusive select overlay that reproduces the
  * native <select> element experience Pretty Well(TM).
@@ -203,7 +204,7 @@
 			// Create placeholder element to display the select's
 			// current value
 			placeholder = $( "<div/>", {
-				"class": settings.classes.placeholder,
+				"class": settings.classes.placeholder
 			});
 
 			btn = $( "<div />", {
@@ -345,7 +346,7 @@
 
 			});
 
-			placeholderContainer.on( "selectstart", function ( e ) {
+			placeholderContainer.on( "selectstart", function ( ) {
 
 				return false;
 
@@ -369,7 +370,7 @@
 				var index = this.selectedIndex,
 					listScrollOffset = Math.abs( list.scrollTop() ),
 					selectedAnchor = $( anchors.get(index) ),
-					positionOffset = parseInt(list.css("border-top-width")),
+					positionOffset = parseInt(list.css("border-top-width"), 10),
 					selectionOffset = selectedAnchor.offset().top - anchors.first().offset().top;
 
 				// Scroll the options list up if selection is above the visible
