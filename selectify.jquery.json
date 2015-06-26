@@ -1,6 +1,6 @@
 {
 	"name": "selectify",
-	"version": "1.1.7",
+	"version": "1.1.8",
 	"title": "Selectify",
 	"description": "Selectify is a UI overlay for select elements which does not screw up your events.",
 	"keywords": [ "selectify", "select", "selectbox", "input", "ui", "overlay", "event", "events" ],
