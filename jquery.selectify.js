@@ -36,7 +36,7 @@
 	/**
 	 * Call against any select element or collection containing select elements
 	 * Non-select elements will be ignored.
-	 * @param  {Object} options Options to pass to the plugin.
+	 * @param  {Mixed} options Options object to pass to the plugin or "remove" string.
 	 *                          Valid options are:
 	 *                          duration	(number, milliseconds) slide up/slide
 	 *                                      down animation duration.
@@ -61,6 +61,7 @@
 	$.fn.selectify = function ( options ) {
 
 		var settings,
+			remove = options === "remove",
 			// Maintain a dictionary of values in the select
 			// so they can be matched as the user types
 			Dictionary = function ( select ) {
@@ -182,6 +183,13 @@
 
 				// Remove old selectifications from the element
 				el.next( "." + settings.classes.container ).remove();
+
+				if ( remove ) {
+
+					el.css( "display", "" );
+					return;
+
+				}
 
 			}
 
